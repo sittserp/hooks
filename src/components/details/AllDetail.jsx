@@ -1,24 +1,23 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { getDetails } from '../../services/rickAndMortyDetails';
-// import DetailList from './DetailList';
 import Detail from './Detail';
 
-export default class AllDetail extends Component {
-    state = {
-      character: {}
-    }
 
-    componentDidMount() {
-      // eslint-disable-next-line react/prop-types
-      getDetails(this.props.match.params.id)
-        .then(character => this.setState({ character }));
-    }
+const AllDetail = () => {
+  const [loading, setLoading] = useState(true);
+  const [detail, setDetail] = useState([]);
+  const { id } = useParams();
 
-    render() {
-      const { character } = this.state;
+  useEffect(() => {
+    getDetails(id).then((detail) => {
+      setDetail(detail);
+      setLoading(false);
+    });
+  }, []);
 
-      return (
-        <Detail {...character} />
-      );
-    }
-} 
+  if (loading) return <h1>Loading</h1>;
+  return <Detail {...detail} />;
+};
+
+export default AllDetail;
