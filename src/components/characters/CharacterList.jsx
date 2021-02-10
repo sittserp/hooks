@@ -10,7 +10,7 @@ const CharacterList = ({ characters }) => {
   ));
 
   return (
-    <ul>
+    <ul data-testid="CharacterList">
       {characterElements}
     </ul>
   );

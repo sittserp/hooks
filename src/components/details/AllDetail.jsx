@@ -1,16 +1,17 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { getDetails } from '../../services/rickAndMortyDetails';
 import Detail from './Detail';
 
 
-const AllDetail = () => {
+const AllDetail = ({ match }) => {
   const [loading, setLoading] = useState(true);
   const [detail, setDetail] = useState([]);
-  const { id } = useParams();
+
+  console.log('match', match);
 
   useEffect(() => {
-    getDetails(id).then((detail) => {
+    getDetails(match.params.id).then((detail) => {
       setDetail(detail);
       setLoading(false);
     });
@@ -19,5 +20,7 @@ const AllDetail = () => {
   if (loading) return <h1>Loading</h1>;
   return <Detail {...detail} />;
 };
+
+
 
 export default AllDetail;

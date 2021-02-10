@@ -20,6 +20,7 @@ export default class App extends React.Component {
               component = { Home }
             />
             <Route
+              exact
               path="/details/:id" 
               component = { Details }
             />
